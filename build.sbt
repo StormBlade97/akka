@@ -200,6 +200,7 @@ lazy val docs = akkaModule("akka-docs")
   .settings(Dependencies.docs)
   .settings(Paradox.settings)
   .settings(ParadoxSupport.paradoxWithCustomDirectives)
+  .settings(javacOptions += "-parameters") // for Jackson
   .enablePlugins(
     AkkaParadoxPlugin,
     DeployRsync,
