@@ -79,7 +79,7 @@ class DeviceGroupQuery(
     msg match {
       case WrappedRespondTemperature(response) => onRespondTemperature(response)
       case DeviceTerminated(deviceId)          => onDeviceTerminated(deviceId)
-      case CollectionTimeout                   => onCollectionTimout()
+      case CollectionTimeout                   => onCollectionTimeout()
     }
 
   private def onRespondTemperature(response: Device.RespondTemperature): Behavior[Command] = {
@@ -103,7 +103,7 @@ class DeviceGroupQuery(
     respondWhenAllCollected()
   }
 
-  private def onCollectionTimout(): Behavior[Command] = {
+  private def onCollectionTimeout(): Behavior[Command] = {
     repliesSoFar ++= stillWaiting.map(deviceId => deviceId -> DeviceTimedOut)
     stillWaiting = Set.empty
     respondWhenAllCollected()
